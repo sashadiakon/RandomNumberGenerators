@@ -5,7 +5,7 @@
 
 using namespace std;
 const int n = 1000;
-// const int M = 9001;
+
 // ++
 vector<int> method1(int repeat = n){
     vector<int> vect = {};
@@ -21,7 +21,7 @@ vector<int> method1(int repeat = n){
     return vect;
 }
 
-// ??
+// ++
 vector<int> method2(int repeat = n){
     vector<int> vect = {};
     long long x0 = 321;
@@ -43,14 +43,13 @@ vector<int> method2(int repeat = n){
 vector<int> method3(int repeat = n){
     vector<int> vect = {};
     int x0 = time(0);
-    int x1 = time(0)-321124;
+    int x1 = 1231;
     int m = 9001;
     for (int i = 0; i <= repeat; i++){
         int n_x0 = x1;
         x1 = (x0+x1)%m;
         x0 = n_x0;
         vect.push_back(x1);
-        float u = float(x1)/m;
     }
     return vect;
 }
@@ -75,8 +74,6 @@ vector<int> method4(int repeat = n){
     for (int i = 0; i <= repeat; i++){
         x0 = (a*mod_inverse(x0, m)+c)%m;
         vect.push_back(x0);
-        float u = float(x0)/m;
-        // distribution[int(u*10)]++;
     }
     return vect;
 }
@@ -94,7 +91,6 @@ vector<int> method5(int repeat = n){
             diff +=m;
         }
         vect.push_back(diff);
-        float u = float(diff%m) / m;
     }
     return vect;
 }
@@ -135,12 +131,12 @@ vector<float> method7(int repeat = n){
         if (s<1){
             x1 = v1*sqrt(-2*log(s)/s);
             x2 = v2*sqrt(-2*log(s)/s);
-            if (-3<=x1<=3){
-                vect.push_back(x1);
-            }
-            if (-3<=x2<=3){
-                vect.push_back(x2);
-            }
+            if (x1 <= 3 && x1 >= -3){
+                    vect.push_back(x1);
+                }
+            if (x2<=3 && x2 >= -3){
+                    vect.push_back(x2);
+                }
         }
     }
     return vect;
@@ -239,11 +235,11 @@ int inputs(){
 void hist1_6(vector<int> x = {}, int repeat = n){
     int m = 9001;
     int distribution[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    for (int i = 0; i <= x.size(); i++){
+    for (int i = 0; i < x.size(); i++){
         distribution[int(float(x[i])/m*10)]++;
     }
     for (int i = 0; i < 10; i ++){
-        cout << "[" + to_string(i*0.1) + "; "+ to_string((i+1)*0.1)+"]:  "<<float(distribution[i])/repeat<<endl;
+        cout << "[" <<i*0.1<<"; "<<(i+1)*0.1<<"]:  "<<float(distribution[i])/repeat<<endl;
     }
 }
 
