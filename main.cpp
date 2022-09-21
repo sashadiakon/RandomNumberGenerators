@@ -24,11 +24,11 @@ vector<int> method1(int repeat = n){
 // ??
 vector<int> method2(int repeat = n){
     vector<int> vect = {};
-    int x0 = time(0);
+    long long x0 = 321;
     int a = 17;
     int m = 9001;
     int c = 31;
-    int d = 12;
+    int d = 7;
     
     for (int i = 0; i <= repeat; i++){
         x0 = (d*x0*x0+a*x0+c)%m;
@@ -112,7 +112,7 @@ vector<float>  method6(int repeat = n){
             sum += u;
         }
         float x = sum-6;
-        if (-3<=x<=3){
+        if (x<=3 && x >= -3){
             vect.push_back(x);
         }
     }
@@ -159,7 +159,7 @@ vector<float> method8(int repeat = n){
         if (u != 0) {
             x = sqrt(8/M_E) * (v-0.5) / u;
             if (x * x <= -4 * log(u)) {
-                if (-3<=x<=3){
+                if (x<=3 && x >= -3){
                     vect.push_back(x);
                 }
             }
@@ -250,7 +250,7 @@ void hist1_6(vector<int> x = {}, int repeat = n){
 void hist6_8(vector<float> x = {}, int repeat = n){
     int m = 9001;
     int distribution[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    for (int i = 0; i <= x.size(); i++){
+    for (int i = 0; i < x.size(); i++){
         distribution[int(float(x[i]+3)/6*10)]++;
     }
     for (int i = 0; i < 10; i ++){
