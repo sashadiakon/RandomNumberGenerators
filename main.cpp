@@ -43,7 +43,7 @@ vector<int> method2(int repeat = n){
 vector<int> method3(int repeat = n){
     vector<int> vect = {};
     int x0 = time(0);
-    int x1 = time(0)+321124;
+    int x1 = time(0)-321124;
     int m = 9001;
     for (int i = 0; i <= repeat; i++){
         int n_x0 = x1;
@@ -139,7 +139,7 @@ vector<float> method7(int repeat = n){
                 vect.push_back(x1);
             }
             if (-3<=x2<=3){
-                vect.push_back(x1);
+                vect.push_back(x2);
             }
         }
     }
@@ -154,32 +154,84 @@ vector<float> method8(int repeat = n){
     int m = 9001;
     float x, u, v;
     for (int i = 0; i <= repeat; i++){
-        u = x_v[i]/m;
-        v = y_v[i]/m;
+        u = float(x_v[i])/m;
+        v = float(y_v[i])/m;
         if (u != 0) {
             x = sqrt(8/M_E) * (v-0.5) / u;
             if (x * x <= -4 * log(u)) {
-                vect.push_back(x);
+                if (-3<=x<=3){
+                    vect.push_back(x);
+                }
             }
         }
     }
+    return vect;
 
 }
 
 
-int menu(){
+
+vector<float> method9(int repeat = n){
+
+    vector<float> vect = {};
+    vector<int> x_v = method1(repeat);
+    int m = 9001;
+    int mu = 23;
+    float x, u, v;
+    for (int i = 0; i <= repeat; i++){
+        u = float(x_v[i])/m;
+        x = -mu*log(u);
+        if (x <= 100){
+            vect.push_back(x);
+        }
+    }
+    return vect;
+}
+
+
+vector<float> method10(int repeat = n){
+
+    vector<float> vect = {};
+    vector<int> x_v = method1(repeat*2);
+    vector<int> y_v = method3(repeat*2);
+    int m = 9001;
+    int a = 30;
+    float x, u, y, v;
+    for (int i = 0; i < repeat; i++){
+        u = float(x_v[i])/m;
+        y = tan(M_PI*u);
+        x = sqrt(2*a-1)*y+a-1;
+        if (x>0){
+            v = float(y_v[i])/m;
+            if (v<=(1+y*y) * exp((a-1)*log(x/(a-1))-sqrt(2*a-1)*y)){
+                if (x <= 100){
+                    vect.push_back(x);
+                }
+            }
+            else {repeat++;}
+        }
+        else {repeat++;}
+    }
+    return vect;
+}
+
+
+void prints(){
     cout<< "1: Linear congruent method"<<endl;
     cout<< "2: Quadr congruent method"<<endl;
     cout<< "3: Fibonachi numbers"<<endl;
     cout<< "4: Inverse congruent method"<<endl;
-    cout<< "Merge method"<<endl;
+    cout<< "5: Merge method"<<endl;
     cout<< "6: \"3 sigma\" rule" << endl;
     cout<< "7: Polar coordinate method" << endl;
     cout<< "8: The method of relations" << endl;
     cout<< "9: Logarithm method for generating an indicative distribution" << endl;
     cout<< "10: Ahrens method for generating a gamma distribution of order a > 1" << endl;
+}
 
+int inputs(){
     int num;
+    cout<<"Type number of your method: ";
     cin >> num;
     return num;
 }
@@ -188,55 +240,78 @@ void hist1_6(vector<int> x = {}, int repeat = n){
     int m = 9001;
     int distribution[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i <= x.size(); i++){
-        cout<<x[i]<<endl;
         distribution[int(float(x[i])/m*10)]++;
     }
     for (int i = 0; i < 10; i ++){
-        cout<<1231;
-        cout << "[" + to_string(i*0.1) + "; 0, "+ to_string((i+1)*0.1)+"]:  "<<float(distribution[i])/repeat<<endl;
+        cout << "[" + to_string(i*0.1) + "; "+ to_string((i+1)*0.1)+"]:  "<<float(distribution[i])/repeat<<endl;
     }
 }
 
 void hist6_8(vector<float> x = {}, int repeat = n){
-    cout<<1;
     int m = 9001;
     int distribution[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i <= x.size(); i++){
         distribution[int(float(x[i]+3)/6*10)]++;
     }
     for (int i = 0; i < 10; i ++){
-        cout << "[" <<i*0.6-3 << "; 0, "<< (i+1)*0.6-3<<"]:  "<<float(distribution[i])/repeat<<endl;
+        cout << "[" <<i*0.6-3 << "; "<< (i+1)*0.6-3<<"]:  "<<float(distribution[i])/repeat<<endl;
     }
 
 }
+
+
+void hist9_10(vector<float> x = {}, int repeat = n){
+    int m = 9001;
+    int distribution[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i <= x.size(); i++){
+        distribution[int(float(x[i])/10)]++;
+    }
+    for (int i = 0; i < 10; i ++){
+        cout << "[" <<i*10 << "; "<< (i+1)*10<<"]:  "<<float(distribution[i])/repeat<<endl;
+    }
+
+}
+
 int main(){
-    int num = menu();
-    switch (num){
-        case 1: 
-            hist1_6(method1()); 
+    prints();
+    while(1){
+        int num = inputs();
+        if (not num){
             break;
-        case 2: 
-            hist1_6(method2());
-            break;
-        case 3: 
-            hist1_6(method3());
-            break;
-        case 4: 
-            hist1_6(method4());
-            break;
-        case 5:
-            hist1_6(method5());
-            break;
-        case 6: 
-            hist6_8(method6());
-            break;
-        case 7:
-            hist6_8(method7());
-            break;
-        case 8:
-        // case 9:
-        // case 10:
-        default: break;
+        }
+        switch (num){
+            case 1: 
+                hist1_6(method1()); 
+                break;
+            case 2: 
+                hist1_6(method2());
+                break;
+            case 3: 
+                hist1_6(method3());
+                break;
+            case 4: 
+                hist1_6(method4());
+                break;
+            case 5:
+                hist1_6(method5());
+                break;
+            case 6: 
+                hist6_8(method6());
+                break;
+            case 7:
+                hist6_8(method7());
+                break;
+            case 8:
+                hist6_8(method8());
+                break;
+            case 9:
+                hist9_10(method9());
+                break;
+            case 10:
+                hist9_10(method10());
+                break;
+            default: break;
+        }
     }
     return 0;
 }
